@@ -84,3 +84,20 @@ def base64_decode_to_text(encoded):
 
     return base64_decode(encoded).decode("utf-8")
 
+def print_base64_map():
+
+    print("\nBase64 Character Map")
+    print("--------------------")
+
+    columns = 4
+    rows = len(BASE64_CHARS) // columns
+
+    for row in range(rows):
+        for col in range(columns):
+            index = row + col * rows
+            char = BASE64_CHARS[index]
+
+            print(f"{char} -> {index:2}", end="    ")
+
+        print()
+
