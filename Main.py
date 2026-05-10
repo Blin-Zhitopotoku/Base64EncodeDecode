@@ -100,4 +100,43 @@ def print_base64_map():
             print(f"{char} -> {index:2}", end="    ")
 
         print()
+while True:
 
+    print_base64_map()
+
+    print("\nBase64 Encoder / Decoder")
+    print("1. Encode")
+    print("2. Decode")
+    print("3. Exit")
+
+    choice = input("Choose an option: ")
+
+    if choice == "1":
+        text = input("Enter text to encode: ")
+
+        encoded = base64_encode(text)
+
+        print("Encoded Base64:")
+        print(encoded)
+
+    elif choice == "2":
+        encoded_text = input("Enter Base64 text to decode: ")
+
+        try:
+            decoded = base64_decode_to_text(encoded_text)
+
+            print("Decoded text:")
+            print(decoded)
+
+        except ValueError as error:
+            print("Error:", error)
+
+        except UnicodeDecodeError:
+            print("Error: The decoded data is not valid UTF-8 text.")
+
+    elif choice == "3":
+        print("Program closed.")
+        break
+
+    else:
+        print("Invalid choice. Please choose 1, 2, or 3.")
