@@ -37,3 +37,50 @@ def base64_encode(data):
 
     return "".join(result)
 
+def base64_decode(encoded):
+
+
+
+    encoded = "".join(char for char in encoded if not char.isspace())
+
+    if len(encoded) % 4 != 0:
+        raise ValueError("Invalid Base64 input length")
+
+    result = bytearray()
+
+    # Process 4 Base64 characters at a time
+    for i in range(0, len(encoded), 4):
+        block = encoded[i:i + 4]
+
+        padding = block.count("=")
+
+        number = 0
+
+        for char in block:
+            if char == "=":
+                value = 0
+            else:
+                if char not in BASE64_CHARS:
+                    raise ValueError(f"Invalid Base64 character: {char}")
+                value = BASE64_CHARS.index(char)
+
+            number = (number << 6) | value
+
+
+        bytes_from_block = [
+            (number >> 16) & 255,
+            (number >> 8) & 255,
+            number & 255
+        ]
+
+
+        for j in range(3 - padding):
+            result.append(bytes_from_block[j])
+
+    return bytes(result)
+
+
+def base64_decode_to_text(encoded):
+
+    return base64_decode(encoded).decode("utf-8")
+
